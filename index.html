@@ -27,7 +27,7 @@
         .search-form {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         input[type="text"] {
             flex: 1;
@@ -47,6 +47,13 @@
         }
         button:hover {
             background-color: #0056b3;
+        }
+        .explanation {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.5;
+            text-align: center;
         }
         .links {
             margin-top: 20px;
@@ -75,6 +82,10 @@
             <input type="text" id="searchQuery" placeholder="検索したい語句を入力" required>
             <button type="submit">検索</button>
         </form>
+        <div class="explanation">
+            このサービスは複数のサービスでまとめて検索を行います。<br>
+            ブラウザのポップアップブロックを解除する必要があります。
+        </div>
         <div class="links" id="searchLinks"></div>
     </div>
 
