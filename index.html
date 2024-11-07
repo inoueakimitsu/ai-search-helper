@@ -87,11 +87,12 @@
             const urls = [
                 `https://chatgpt.com/?q=英語で検索し、日本語で回答してください。${encodedQuery}&hints=search&ref=ext`,
                 `https://perplexity.ai/search/new?q=${encodedQuery}&copilot=false&s=d`,
-                `https://genspark.ai/search?query=${encodedQuery}`
+                `https://genspark.ai/search?query=${encodedQuery}`,
+                `https://www.google.com/search?q=${encodedQuery}`
             ];
 
             const linksDiv = document.getElementById('searchLinks');
-            const serviceNames = ['ChatGPT', 'Perplexity AI', 'GenSpark AI'];
+            const serviceNames = ['ChatGPT', 'Perplexity AI', 'GenSpark AI', 'Google'];
             linksDiv.innerHTML = urls.map((url, index) => 
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
