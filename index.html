@@ -101,7 +101,16 @@
 
     <script>
         window.onload = function() {
-            document.getElementById('searchQuery').focus();
+            const searchInput = document.getElementById('searchQuery');
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+
+            if (queryParam) {
+                searchInput.value = decodeURIComponent(queryParam);
+                performSearch();
+            }
+
+            searchInput.focus();
         };
 
         document.getElementById('searchQuery').addEventListener('keydown', function(event) {
@@ -112,7 +121,7 @@
         });
 
         function performSearch(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             
             const searchInput = document.getElementById('searchQuery');
             const query = searchInput.value;
