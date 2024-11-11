@@ -33,15 +33,17 @@
         }
         .search-form {
             display: flex;
+            flex-direction: column;
             gap: 10px;
             margin-bottom: 10px;
         }
-        input[type="text"] {
+        textarea {
             flex: 1;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
+            resize: vertical;
         }
         button {
             padding: 10px 20px;
@@ -86,12 +88,13 @@
     <div class="search-container">
         <h1><img src="favicon.png" alt="Favicon">AI Search Helper</h1>
         <form class="search-form" id="searchForm" onsubmit="return performSearch(event)">
-            <input type="text" id="searchQuery" placeholder="検索したい語句を入力" required>
+            <textarea id="searchQuery" placeholder="検索したい語句を入力" required></textarea>
             <button type="submit">検索</button>
         </form>
         <div class="explanation">
             このサービスは複数のサービスでまとめて検索を行います。<br>
-            ブラウザのポップアップブロックを解除する必要があります。
+            ブラウザのポップアップブロックを解除する必要があります。<br>
+            <strong>Ctrl + Enter</strong> で検索を送信します。
         </div>
         <div class="links" id="searchLinks"></div>
     </div>
@@ -100,6 +103,13 @@
         window.onload = function() {
             document.getElementById('searchQuery').focus();
         };
+
+        document.getElementById('searchQuery').addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                performSearch(event);
+            }
+        });
 
         function performSearch(event) {
             event.preventDefault();
