@@ -44,6 +44,8 @@
             border-radius: 4px;
             font-size: 16px;
             resize: vertical;
+            min-height: 90px; /* 3行分の高さを確保 */
+            line-height: 1.5;
         }
         button {
             padding: 10px 20px;
@@ -64,8 +66,24 @@
             line-height: 1.5;
             text-align: center;
         }
-        .links {
-            margin-top: 20px;
+        .search-engines {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666;
+        }
+        .search-engines h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+        .search-engines ul {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.6;
         }
         .links {
             text-align: center;
@@ -95,6 +113,15 @@
             このサービスは複数のサービスでまとめて検索を行います。<br>
             ブラウザのポップアップブロックを解除する必要があります。<br>
             <strong>Ctrl + Enter</strong> で検索を送信します。
+        </div>
+        <div class="search-engines">
+            <h3>検索実行時に開かれる検索エンジン（順序）:</h3>
+            <ul>
+                <li>Google - 一般的な検索結果</li>
+                <li>GenSpark AI - AI支援による検索・要約</li>
+                <li>ChatGPT - 英語で検索し日本語で回答</li>
+                <li>Perplexity AI - AI支援による詳細な調査</li>
+            </ul>
         </div>
         <div class="links" id="searchLinks"></div>
     </div>
@@ -128,14 +155,14 @@
             const encodedQuery = encodeURIComponent(query);
             
             const urls = [
-                `https://chatgpt.com/?q=英語で検索し、日本語で回答してください。${encodedQuery}&hints=search&ref=ext`,
-                `https://perplexity.ai/search/new?q=${encodedQuery}&copilot=false&s=d`,
+                `https://www.google.com/search?q=${encodedQuery}`,
                 `https://genspark.ai/search?query=${encodedQuery}`,
-                `https://www.google.com/search?q=${encodedQuery}`
+                `https://chatgpt.com/?q=英語で検索し、日本語で回答してください。${encodedQuery}&hints=search&ref=ext`,
+                `https://perplexity.ai/search/new?q=${encodedQuery}&copilot=false&s=d`
             ];
 
             const linksDiv = document.getElementById('searchLinks');
-            const serviceNames = ['ChatGPT', 'Perplexity AI', 'GenSpark AI', 'Google'];
+            const serviceNames = ['Google', 'GenSpark AI', 'ChatGPT', 'Perplexity AI'];
             linksDiv.innerHTML = urls.map((url, index) => 
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
