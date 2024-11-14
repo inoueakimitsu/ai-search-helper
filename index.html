@@ -135,42 +135,42 @@
     <div class="search-container">
         <h1><img src="favicon.png" alt="Favicon">AI Search Helper</h1>
         <form class="search-form" id="searchForm" onsubmit="return performSearch(event)">
-            <textarea id="searchQuery" placeholder="検索したい語句を入力" required></textarea>
+            <textarea id="searchQuery" placeholder="検索したいクエリを入力" required></textarea>
             <button type="submit">検索</button>
         </form>
         <div class="explanation">
-            このサービスは複数のサービスでまとめて検索を行います。<br>
-            ブラウザのポップアップブロックを解除する必要があります。<br>
+            このサービスは複数の AI 検索サービスでまとめて検索を行います。<br>
+            ブラウザのポップアップ ブロックを解除する必要があります。<br>
             <strong>Ctrl + Enter</strong> で検索を送信します。
         </div>
         <div class="search-engines">
             <h3>検索実行時に開かれる検索エンジン（順序）:</h3>
             <ul>
                 <li>Google - 一般的な検索結果</li>
-                <li>GenSpark AI - AI支援による検索・要約</li>
+                <li>GenSpark AI - AI 支援による検索・要約</li>
                 <li>ChatGPT - 英語で検索し日本語で回答</li>
-                <li>Perplexity AI - AI支援による詳細な調査</li>
+                <li>Perplexity AI - AI 支援による詳細な調査</li>
             </ul>
         </div>
         <div class="chrome-setup">
-            <h3>Chromeでショートカット検索を設定する方法:</h3>
+            <h3>Chrome でショートカット検索を設定する方法:</h3>
             <ol>
-                <li>Chrome設定（chrome://settings/search）を開く</li>
+                <li>Chrome設定 (chrome://settings/search) を開く</li>
                 <li>「検索エンジンとサイト内検索を管理する」をクリック</li>
                 <li>「サイト内検索」セクションの「追加」ボタンをクリック</li>
                 <li>以下の情報を入力:
                     <ul>
                         <li>検索エンジン: ai-search-helper</li>
                         <li>ショートカット: ai</li>
-                        <li>URL: https://inouekimitsu.github.io/ai-search-helper/?q=%s</li>
+                        <li>URL: https://inoueakimitsu.github.io/ai-search-helper/?q=%s</li>
                     </ul>
                 </li>
                 <li>「保存」をクリック</li>
                 <li>必要に応じて「デフォルトに設定」で既定の検索エンジンとして設定可能</li>
             </ol>
             <div class="usage-hint">
-                設定後は、Chromeのアドレスバーで「ai」と入力してスペースまたはTabを押すと、
-                このAI Search Helperで直接検索できるようになります。
+                設定後は、Chrome のアドレスバーで「ai」と入力してスペースまたは Tab を押すと、
+                この AI Search Helper で直接検索できるようになります。
             </div>
         </div>        
         <div class="links" id="searchLinks"></div>
