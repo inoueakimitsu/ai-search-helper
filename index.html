@@ -181,12 +181,15 @@
             const searchInput = document.getElementById('searchQuery');
             const urlParams = new URLSearchParams(window.location.search);
             const queryParam = urlParams.get('q');
-
+        
             if (queryParam) {
                 searchInput.value = decodeURIComponent(queryParam);
-                performSearch();
+                // タブが破棄されて再読み込みされた場合は自動検索を実行しない
+                if (!document.wasDiscarded) {
+                    performSearch();
+                }
             }
-
+        
             searchInput.focus();
         };
 
