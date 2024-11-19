@@ -183,10 +183,18 @@
             const queryParam = urlParams.get('q');
         
             if (queryParam) {
-                searchInput.value = decodeURIComponent(queryParam);
-                // タブが破棄されて再読み込みされた場合は自動検索を実行しない
-                if (!document.wasDiscarded) {
+                const decodedQuery = decodeURIComponent(queryParam);
+                searchInput.value = decodedQuery;
+                
+                // 検索履歴を取得
+                const searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+                
+                // タブが破棄されていない、かつ未検索のキーワードの場合のみ検索を実行
+                if (!document.wasDiscarded && !searchHistory.includes(decodedQuery)) {
                     performSearch();
+                    // 検索履歴に追加
+                    searchHistory.push(decodedQuery);
+                    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
                 }
             }
         
