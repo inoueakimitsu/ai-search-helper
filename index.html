@@ -207,23 +207,11 @@ window.onload = function() {
         });
 
         // ポップアップを順番に開く非同期関数
-        async function openPopupsSequentially(urls) {
+        function openPopups(urls) {
             for (let i = 0; i < urls.length; i++) {
-                try {
-                    await new Promise((resolve, reject) => {
-                        const popupWindow = window.open(urls[i], '_blank');
-                        
-                        if (popupWindow) {
-                            setTimeout(resolve, 500); // 500ms後に次のウィンドウを開く
-                        } else {
-                            reject(new Error('ポップアップがブロックされました'));
-                        }
-                    });
-                } catch (error) {
-                    console.error(`URL ${urls[i]} の表示に失敗: ${error.message}`);
-                    // ユーザーに通知
+                const popupWindow = window.open(urls[i], '_blank');
+                if (!popupWindow) {
                     alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');
-                    // リンクを表示して手動で開けるようにする
                     document.getElementById('searchLinks').style.display = 'block';
                     break;
                 }
@@ -250,7 +238,7 @@ window.onload = function() {
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
             
-            openPopupsSequentially(urls);
+            openPopups(urls);
 
             // 入力エリアの文字列を全て選択状態にする
             searchInput.select();
