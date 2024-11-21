@@ -250,13 +250,7 @@ window.onload = function() {
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
             
-            // ユーザーのクリックイベントのコンテキストで実行
-            if (event && event.isTrusted) {
-                openPopupsSequentially(urls);
-            } else {
-                // URL パラメータからの自動実行時は手動リンクのみ表示
-                linksDiv.style.display = 'block';
-            }
+            openPopupsSequentially(urls);
 
             // 入力エリアの文字列を全て選択状態にする
             searchInput.select();
