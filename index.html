@@ -177,7 +177,8 @@
     </div>
 
     <script>
-        window.onload = function() {
+
+window.onload = function() {
             const searchInput = document.getElementById('searchQuery');
             const urlParams = new URLSearchParams(window.location.search);
             const queryParam = urlParams.get('q');
@@ -186,13 +187,10 @@
                 const decodedQuery = decodeURIComponent(queryParam);
                 searchInput.value = decodedQuery;
                 
-                // 検索履歴を取得
                 const searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
                 
-                // タブが破棄されていない、かつ未検索のキーワードの場合のみ検索を実行
                 if (!document.wasDiscarded && !searchHistory.includes(decodedQuery)) {
                     performSearch();
-                    // 検索履歴に追加
                     searchHistory.push(decodedQuery);
                     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
                 }
@@ -207,6 +205,30 @@
                 performSearch(event);
             }
         });
+
+        // ポップアップを順番に開く非同期関数
+        async function openPopupsSequentially(urls) {
+            for (let i = 0; i < urls.length; i++) {
+                try {
+                    await new Promise((resolve, reject) => {
+                        const popupWindow = window.open(urls[i], '_blank');
+                        
+                        if (popupWindow) {
+                            setTimeout(resolve, 500); // 500ms後に次のウィンドウを開く
+                        } else {
+                            reject(new Error('ポップアップがブロックされました'));
+                        }
+                    });
+                } catch (error) {
+                    console.error(`URL ${urls[i]} の表示に失敗: ${error.message}`);
+                    // ユーザーに通知
+                    alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');
+                    // リンクを表示して手動で開けるようにする
+                    document.getElementById('searchLinks').style.display = 'block';
+                    break;
+                }
+            }
+        }
 
         function performSearch(event) {
             if (event) event.preventDefault();
@@ -227,11 +249,14 @@
             linksDiv.innerHTML = urls.map((url, index) => 
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
-
-            // 自動で新しいタブで開く
-            urls.forEach(url => {
-                window.open(url, '_blank');
-            });
+            
+            // ユーザーのクリックイベントのコンテキストで実行
+            if (event && event.isTrusted) {
+                openPopupsSequentially(urls);
+            } else {
+                // URL パラメータからの自動実行時は手動リンクのみ表示
+                linksDiv.style.display = 'block';
+            }
 
             // 入力エリアの文字列を全て選択状態にする
             searchInput.select();
