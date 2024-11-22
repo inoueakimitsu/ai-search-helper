@@ -147,6 +147,7 @@
             <h3>検索実行時に開かれる検索エンジン（順序）:</h3>
             <ul>
                 <li>Google - 一般的な検索結果</li>
+                <li>Felo Search - AI 支援による検索</li>
                 <li>GenSpark AI - AI 支援による検索・要約</li>
                 <li>ChatGPT - 英語で検索し日本語で回答</li>
                 <li>Perplexity AI - AI 支援による詳細な調査</li>
@@ -227,13 +228,14 @@ window.onload = function() {
             
             const urls = [
                 `https://www.google.com/search?q=${encodedQuery}`,
+                `https://felo.ai/search?q=${encodedQuery}`,
                 `https://genspark.ai/search?query=${encodedQuery}`,
                 `https://chatgpt.com/?q=英語で検索し、日本語で回答してください。${encodedQuery}&hints=search&ref=ext`,
                 `https://perplexity.ai/search/new?q=${encodedQuery}&copilot=false&s=d`
             ];
 
             const linksDiv = document.getElementById('searchLinks');
-            const serviceNames = ['Google', 'GenSpark AI', 'ChatGPT', 'Perplexity AI'];
+            const serviceNames = ['Google', 'Felo Search', 'GenSpark AI', 'ChatGPT', 'Perplexity AI'];
             linksDiv.innerHTML = urls.map((url, index) => 
                 `<a href="${url}" target="_blank">${serviceNames[index]}で検索</a>`
             ).join(' | ');
