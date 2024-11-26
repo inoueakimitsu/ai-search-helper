@@ -66,6 +66,11 @@
             line-height: 1.5;
             text-align: center;
         }
+        .keyboard-hint {
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 5px;
+        }
         .search-engines {
             margin-top: 15px;
             padding: 15px;
@@ -141,7 +146,10 @@
         <div class="explanation">
             このサービスは複数の AI 検索サービスでまとめて検索を行います。<br>
             ブラウザのポップアップ ブロックを解除する必要があります。<br>
-            <strong>Ctrl + Enter</strong> で検索を送信します。
+            <div class="keyboard-hint">
+                Enter で検索を送信します<br>
+                Use Shift + Return for new line
+            </div>
         </div>
         <div class="search-engines">
             <h3>検索実行時に開かれる検索エンジン（順序）:</h3>
@@ -178,8 +186,7 @@
     </div>
 
     <script>
-
-window.onload = function() {
+        window.onload = function() {
             const searchInput = document.getElementById('searchQuery');
             const urlParams = new URLSearchParams(window.location.search);
             const queryParam = urlParams.get('q');
@@ -201,7 +208,12 @@ window.onload = function() {
         };
 
         document.getElementById('searchQuery').addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.key === 'Enter') {
+            if (event.key === 'Enter') {
+                if (event.shiftKey) {
+                    // Shift + Enter の場合は通常の改行を許可
+                    return;
+                }
+                // Enter のみの場合は検索を実行
                 event.preventDefault();
                 performSearch(event);
             }
